@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class LoginFieldModel extends ChangeNotifier {
   String email = "";
   String password = "";
-  String registernumber = "";
+  //String registernumber = "";
 
   void setEmail(String email) {
     this.email = email;
@@ -15,8 +15,8 @@ class LoginFieldModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setRegisternumber(String registernumber) {
-    this.registernumber = registernumber;
-    notifyListeners();
-  }
+  // void setRegisternumber(String registernumber) {
+  //   this.registernumber = registernumber;
+  //   notifyListeners();
+  // }
 }

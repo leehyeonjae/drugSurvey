@@ -8,6 +8,7 @@ import 'package:flutter_drug_survey_application/models/model_auth.dart';
 import 'package:flutter_drug_survey_application/screens/screen_splash.dart';
 import 'package:flutter_drug_survey_application/screens/screen_login.dart';
 import 'package:flutter_drug_survey_application/screens/screen_index.dart';
+import 'package:flutter_drug_survey_application/screens/screen_register.dart';
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print('Handling a background message ${message.messageId}');
@@ -36,8 +37,8 @@ class MyApp extends StatelessWidget {
           '/': (context) => SplashScreen(),
           '/login': (context) => LoginScreen(),
           '/index': (context) => IndexScreen(),
-          //'/register': (context) => RegisterScreen(),
-          //'/medicine_register': (context) => medicine_RegisterScreen(),
+          '/register': (context) => RegisterScreen(),
+          //'/medicine_register': (context) => medicine_RegisterScrPeen(),
         },
         initialRoute: '/',
       ),

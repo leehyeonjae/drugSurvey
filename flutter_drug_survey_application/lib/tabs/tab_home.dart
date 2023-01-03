@@ -12,15 +12,15 @@ class HomeTab extends StatelessWidget {
   Future<void> _sendUpdate([DocumentSnapshot? documentsSnapshot]) async {
     DateTime dt = DateTime.now();
     String takeTime = dt.year.toString() +
-        '_' +
+        '-' +
         dt.month.toString() +
-        '_' +
+        '-' +
         dt.day.toString() +
-        '_' +
+        '  ' +
         dt.hour.toString() +
-        '_' +
+        ':' +
         dt.minute.toString() +
-        '_' +
+        ':' +
         dt.second.toString();
     await _products.doc(documentsSnapshot!.id).update({
       "takeTime": FieldValue.arrayUnion([takeTime])
@@ -48,9 +48,9 @@ class HomeTab extends StatelessWidget {
                         i < documentSnapshot['takeTime'].length;
                         i++) {
                       String today = dt.year.toString() +
-                          '_' +
+                          '-' +
                           dt.month.toString() +
-                          '_' +
+                          '-' +
                           dt.day.toString();
                       if (documentSnapshot['takeTime'][i]
                           .toString()

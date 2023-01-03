@@ -14,7 +14,7 @@ class LoginScreen extends StatelessWidget {
           children: [
             EmailInput(),
             PasswordInput(),
-            RegisterNumberInput(),
+            //RegisterNumberInput(),
             LoginButton(),
             Padding(
               padding: EdgeInsets.all(8.0),
@@ -68,25 +68,25 @@ class PasswordInput extends StatelessWidget {
   }
 }
 
-class RegisterNumberInput extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final loginField = Provider.of<LoginFieldModel>(context, listen: false);
-    return Container(
-      padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
-      child: TextField(
-        onChanged: (registerNumber) {
-          loginField.setRegisternumber(registerNumber);
-        },
-        obscureText: true,
-        decoration: InputDecoration(
-          labelText: '登録番号',
-          helperText: '',
-        ),
-      ),
-    );
-  }
-}
+// class RegisterNumberInput extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     final loginField = Provider.of<LoginFieldModel>(context, listen: false);
+//     return Container(
+//       padding: EdgeInsets.fromLTRB(20, 5, 20, 5),
+//       child: TextField(
+//         onChanged: (registerNumber) {
+//           loginField.setRegisternumber(registerNumber);
+//         },
+//         obscureText: true,
+//         decoration: InputDecoration(
+//           labelText: '登録番号',
+//           helperText: '',
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class LoginButton extends StatelessWidget {
   @override
