@@ -43,7 +43,7 @@ class _IndexScreenState extends State<IndexScreen> {
   void initState() {
     super.initState();
     _message = "";
-    getMessage();
+    //getMessage();
     requestPermission();
     getToken();
     initInfo();
@@ -52,16 +52,23 @@ class _IndexScreenState extends State<IndexScreen> {
   initInfo() {
     var androidInitialize =
         const AndroidInitializationSettings('@mipmap/ic_launcher');
-    var iOSInitialize = const DarwinInitializationSettings();
+    var iOSInitialize = const DarwinInitializationSettings(
+      requestAlertPermission: true,
+      requestBadgePermission: true,
+      requestSoundPermission: false,
+    );
     var initializationsSettings =
         InitializationSettings(android: androidInitialize, iOS: iOSInitialize);
     flutterLocalNotificationsPlugin.initialize(initializationsSettings,
-        onDidReceiveNotificationResponse: (NotificationResponse res) async {});
+        onDidReceiveNotificationResponse: (NotificationResponse res) async {
+      debugPrint('payload:${res.payload}');
+    });
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
       print(
           ".............................onMessage............................");
       print(
-          "onMessage: ${message.notification?.title}/${message.notification?.body}}");
+          "onMessage: ${message.notification?.title}/${message.notification?.body}");
+
       BigTextStyleInformation bigTextStyleInformation = BigTextStyleInformation(
         message.notification!.body.toString(),
         htmlFormatBigText: true,
@@ -116,7 +123,7 @@ class _IndexScreenState extends State<IndexScreen> {
         sound: true);
 
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      print('User granted permission');
+      print('User granted permission: ${settings.authorizationStatus}');
     } else if (settings.authorizationStatus ==
         AuthorizationStatus.provisional) {
       print('User granted provisionla permission');
@@ -125,52 +132,52 @@ class _IndexScreenState extends State<IndexScreen> {
     }
   }
 
-  void sendPushMessage(String token, String body, String title) async {
-    if (token == null) {
-      print('Unable to send FCM message, no token exists.');
-    }
+  // void sendPushMessage(String token, String body, String title) async {
+  //   if (token == null) {
+  //     print('Unable to send FCM message, no token exists.');
+  //   }
 
-    try {
-      await http.post(
-        Uri.parse('https://fcm.googleapis.com/fcm/send'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization':
-              'AAAA5hO9928:APA91bHNcnxxnSuwQ1-Qd-dt4hhIrVtAbaEvbGP-cPA93i-T1vV5gczuBQcDNKSQJVyQX9xPpFH8bGHG0N3cQan7JbrVgdnDtPpuOfNtWCSWtCFLzskDgN0i8GQwTlI2nFfW9-y_Iv0W'
-        },
-        body: jsonEncode(<String, dynamic>{
-          'priority': 'high',
-          'data': <String, dynamic>{
-            'click_action': 'FLUTTER_NOTIFICATION_CLICK',
-            'status': 'done',
-            'body': body,
-            'title': title,
-          },
-          "notofication": <String, dynamic>{
-            "title": title,
-            "body": body,
-            "android_channel_id": "dbfood"
-          },
-          "to": token,
-        }),
-      );
-      print("FCM request for device sent!");
-    } catch (e) {
-      print(e);
-    }
-  }
+  //   try {
+  //     await http.post(
+  //       Uri.parse('https://fcm.googleapis.com/fcm/send'),
+  //       headers: <String, String>{
+  //         'Content-Type': 'application/json; charset=UTF-8',
+  //         'Authorization':
+  //             'AAAA5hO9928:APA91bHNcnxxnSuwQ1-Qd-dt4hhIrVtAbaEvbGP-cPA93i-T1vV5gczuBQcDNKSQJVyQX9xPpFH8bGHG0N3cQan7JbrVgdnDtPpuOfNtWCSWtCFLzskDgN0i8GQwTlI2nFfW9-y_Iv0W'
+  //       },
+  //       body: jsonEncode(<String, dynamic>{
+  //         'priority': 'high',
+  //         'data': <String, dynamic>{
+  //           'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+  //           'status': 'done',
+  //           'body': body,
+  //           'title': title,
+  //         },
+  //         "notofication": <String, dynamic>{
+  //           "title": title,
+  //           "body": body,
+  //           "android_channel_id": "dbfood"
+  //         },
+  //         "to": token,
+  //       }),
+  //     );
+  //     print("FCM request for device sent!");
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
 
-  void getMessage() async {
-    String url =
-        'https://us-central1-fcmapp-63b00.cloudfunctions.net/function-2';
-    var response = await http.get(Uri.parse(url));
-    setState(() {
-      String messageTest = "";
-      messageTest = response.body;
-      print(messageTest);
-      _message = messageTest;
-    });
-  }
+  // void getMessage() async {
+  //   String url =
+  //       'https://us-central1-fcmapp-63b00.cloudfunctions.net/function-2';
+  //   var response = await http.get(Uri.parse(url));
+  //   setState(() {
+  //     String messageTest = "";
+  //     messageTest = response.body;
+  //     print(messageTest);
+  //     _message = messageTest;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
